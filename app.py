@@ -140,6 +140,7 @@ HTML = """
             width: 100%;
             text-align: center;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: opacity 0.3s ease;
         }
 
         h1 {
@@ -206,22 +207,41 @@ HTML = """
     </style>
 </head>
 <body>
-    <div class="card">
+    <div class="card" id="card">
         <h1>Why I Love You Varvara 💕</h1>
         <div class="reason-number">Reason #{{ number }}</div>
         <div class="reason">
             I love you because {{ reason }}.
         </div>
-        <form method="post">
-            <button type="submit">Press for another 💖</button>
-        </form>
+
+        <button id="next-btn">Press for another 💖</button>
+
         <footer>Made with love, just for you</footer>
     </div>
+
+    <script>
+        document.getElementById("next-btn").addEventListener("click", async () => {
+            const card = document.getElementById("card");
+            card.style.opacity = "0";
+
+            const response = await fetch("/next", { method: "POST" });
+            const data = await response.json();
+
+            setTimeout(() => {
+                document.querySelector(".reason").innerHTML =
+                    "I love you because " + data.reason + ".";
+                document.querySelector(".reason-number").innerHTML =
+                    "Reason #" + data.number;
+
+                card.style.opacity = "1";
+            }, 200);
+        });
+    </script>
 </body>
 </html>
 """
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["GET"])
 def index():
     if "count" not in session:
         session["count"] = 0
@@ -234,6 +254,16 @@ def index():
         reason=reason,
         number=session["count"]
     )
+
+@app.route("/next", methods=["POST"])
+def next_reason():
+    if "count" not in session:
+        session["count"] = 0
+
+    reason = reasons[session["count"] % len(reasons)]
+    session["count"] += 1
+
+    return {"reason": reason, "number": session["count"]}
 
 if __name__ == "__main__":
     app.run(debug=True)
