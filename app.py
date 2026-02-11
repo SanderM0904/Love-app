@@ -222,19 +222,29 @@ HTML = """
     <script>
         document.getElementById("next-btn").addEventListener("click", async () => {
             const card = document.getElementById("card");
+            const reasonBox = document.querySelector(".reason");
+            const numberBox = document.querySelector(".reason-number");
+
+            // Fade out
             card.style.opacity = "0";
 
+            // Thinking emoji
+            reasonBox.innerHTML = "🤔";
+            numberBox.innerHTML = "";
+
+            // Wait 0.5 seconds
+            await new Promise(resolve => setTimeout(resolve, 500));
+
+            // Fetch next reason
             const response = await fetch("/next", { method: "POST" });
             const data = await response.json();
 
-            setTimeout(() => {
-                document.querySelector(".reason").innerHTML =
-                    "I love you because " + data.reason + ".";
-                document.querySelector(".reason-number").innerHTML =
-                    "Reason #" + data.number;
+            // Update text
+            reasonBox.innerHTML = "I love you because " + data.reason + ".";
+            numberBox.innerHTML = "Reason #" + data.number;
 
-                card.style.opacity = "1";
-            }, 200);
+            // Fade back in
+            card.style.opacity = "1";
         });
     </script>
 </body>
