@@ -118,6 +118,7 @@ HTML = """
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Why I Love You Varvara 💖</title>
     <style>
         body {
@@ -128,6 +129,7 @@ HTML = """
             align-items: center;
             height: 100vh;
             margin: 0;
+            padding: 10px;
         }
 
         .card {
@@ -135,6 +137,7 @@ HTML = """
             padding: 40px;
             border-radius: 20px;
             max-width: 420px;
+            width: 100%;
             text-align: center;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
@@ -177,6 +180,28 @@ HTML = """
             margin-top: 20px;
             font-size: 12px;
             color: #aaa;
+        }
+
+        /* PHONE VERSION */
+        @media (max-width: 480px) {
+            .card {
+                padding: 20px;
+                max-width: 90%;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .reason {
+                font-size: 16px;
+            }
+
+            button {
+                width: 100%;
+                padding: 14px;
+                font-size: 16px;
+            }
         }
     </style>
 </head>
