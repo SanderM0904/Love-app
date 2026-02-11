@@ -220,33 +220,43 @@ HTML = """
     </div>
 
     <script>
-        document.getElementById("next-btn").addEventListener("click", async () => {
-            const card = document.getElementById("card");
-            const reasonBox = document.querySelector(".reason");
-            const numberBox = document.querySelector(".reason-number");
-
-            // Fade out
-            card.style.opacity = "0";
-
-            // Thinking emoji
+    document.getElementById("next-btn").addEventListener("click", async () => {
+        const reasonBox = document.querySelector(".reason");
+        const numberBox = document.querySelector(".reason-number");
+    
+        // Fade out only the text
+        reasonBox.style.opacity = "0";
+        numberBox.style.opacity = "0";
+    
+        // Thinking emoji
+        setTimeout(() => {
             reasonBox.innerHTML = "🤔";
             numberBox.innerHTML = "";
-
-            // Wait 0.5 seconds
-            await new Promise(resolve => setTimeout(resolve, 500));
-
-            // Fetch next reason
-            const response = await fetch("/next", { method: "POST" });
-            const data = await response.json();
-
+            reasonBox.style.opacity = "1";
+        }, 150);
+    
+        // Wait 0.5 seconds
+        await new Promise(resolve => setTimeout(resolve, 500));
+    
+        // Fetch next reason
+        const response = await fetch("/next", { method: "POST" });
+        const data = await response.json();
+    
+        // Fade out the emoji
+        reasonBox.style.opacity = "0";
+    
+        setTimeout(() => {
             // Update text
             reasonBox.innerHTML = "I love you because " + data.reason + ".";
             numberBox.innerHTML = "Reason #" + data.number;
-
-            // Fade back in
-            card.style.opacity = "1";
-        });
+    
+            // Fade text back in
+            reasonBox.style.opacity = "1";
+            numberBox.style.opacity = "1";
+        }, 200);
+    });
     </script>
+
 </body>
 </html>
 """
