@@ -142,7 +142,9 @@ HTML = """
             max-width: 420px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 
+                0 20px 40px rgba(0,0,0,0.1),
+                0 0 25px rgba(231, 84, 128, 0.25);
             transition: opacity 0.3s ease;
         }
 
@@ -231,14 +233,14 @@ HTML = """
         reasonBox.style.opacity = "0";
         numberBox.style.opacity = "0";
     
-        // Thinking emoji
+        // Thinking emoji appears
         setTimeout(() => {
             reasonBox.innerHTML = "🤔";
             numberBox.innerHTML = "";
             reasonBox.style.opacity = "1";
         }, 150);
     
-        // Wait 0.8 seconds
+        // Wait 0.5 seconds
         await new Promise(resolve => setTimeout(resolve, 500));
     
         // Fetch next reason
@@ -248,17 +250,32 @@ HTML = """
         // Fade out the emoji
         reasonBox.style.opacity = "0";
     
+        // Typing effect function
+        function typeText(element, text, speed = 25) {
+            element.innerHTML = "";
+            let i = 0;
+            let interval = setInterval(() => {
+                element.innerHTML += text[i];
+                i++;
+                if (i >= text.length) clearInterval(interval);
+            }, speed);
+        }
+    
         setTimeout(() => {
-            // Update text
-            reasonBox.innerHTML = "I love you because " + data.reason + ".";
+            // Update number immediately
             numberBox.innerHTML = "Reason #" + data.number;
+            numberBox.style.opacity = "1";
+    
+            // Start typing effect for the reason
+            const fullText = "I love you because " + data.reason + ".";
+            typeText(reasonBox, fullText);
     
             // Fade text back in
             reasonBox.style.opacity = "1";
-            numberBox.style.opacity = "1";
         }, 200);
     });
     </script>
+
 
 </body>
 </html>
