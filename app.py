@@ -25,7 +25,7 @@ reasons = [
     "I feel loved for the first time",
     "I want to touch you (appropriately)",
     "I want to touch you (inappropriately)",
-    "want to give you all my money. Take it!!",
+    "you make me want to give you all my money. Take it!!",
     "I care so deeply about you and want you to live your best life you could wish for",
     "you are the cutest, caring, kindest, bestest person alive",
     "I want you to be in every memory I will have from now on",
@@ -109,6 +109,9 @@ reasons = [
     "I love it when you make that sad face when I say I have to go :( It makes me want to stay longer",
     "I want to show you all my childhood spots in my hometown",
     "you can tolerate spicy food and it's cool. I want to be like you",
+    "I love talking about how amazing you are to other people",
+    "all your presents you give me mean so much to me",
+    "I keep wondering why I deserve you",
 ]
 
 random.shuffle(reasons)
@@ -235,7 +238,7 @@ HTML = """
             reasonBox.style.opacity = "1";
         }, 150);
     
-        // Wait 0.5 seconds
+        // Wait 0.8 seconds
         await new Promise(resolve => setTimeout(resolve, 500));
     
         // Fetch next reason
