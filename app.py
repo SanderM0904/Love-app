@@ -133,6 +133,38 @@ HTML = """
             height: 100vh;
             margin: 0;
             padding: 10px;
+            overflow: hidden; /* Needed for floating hearts */
+        }
+
+        /* ✨ FLOATING HEARTS BACKGROUND ✨ */
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .heart {
+            position: absolute;
+            bottom: -50px;
+            font-size: 20px;
+            opacity: 0.6;
+            animation: floatUp 6s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-120vh) translateX(20px) scale(1.4);
+                opacity: 0;
+            }
         }
 
         .card {
@@ -146,6 +178,8 @@ HTML = """
                 0 20px 40px rgba(0,0,0,0.1),
                 0 0 25px rgba(231, 84, 128, 0.25);
             transition: opacity 0.3s ease;
+            z-index: 2; /* Above hearts */
+            position: relative;
         }
 
         h1 {
@@ -212,6 +246,10 @@ HTML = """
     </style>
 </head>
 <body>
+
+    <!-- ✨ Floating hearts container -->
+    <div class="hearts" id="hearts"></div>
+
     <div class="card" id="card">
         <h1>Why I Love You Varvara 💕</h1>
         <div class="reason-number">Reason #{{ number }}</div>
@@ -225,32 +263,48 @@ HTML = """
     </div>
 
     <script>
+    /* ✨ Generate floating hearts continuously ✨ */
+    function createHeart() {
+        const hearts = document.getElementById("hearts");
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "💖";
+
+        // Random horizontal position
+        heart.style.left = Math.random() * 100 + "vw";
+
+        // Random animation duration
+        heart.style.animationDuration = (5 + Math.random() * 3) + "s";
+
+        hearts.appendChild(heart);
+
+        // Remove heart after animation
+        setTimeout(() => heart.remove(), 8000);
+    }
+
+    setInterval(createHeart, 800);
+
+    /* ✨ Button logic with typing effect ✨ */
     document.getElementById("next-btn").addEventListener("click", async () => {
         const reasonBox = document.querySelector(".reason");
         const numberBox = document.querySelector(".reason-number");
-    
-        // Fade out only the text
+
         reasonBox.style.opacity = "0";
         numberBox.style.opacity = "0";
-    
-        // Thinking emoji appears
+
         setTimeout(() => {
             reasonBox.innerHTML = "🤔";
             numberBox.innerHTML = "";
             reasonBox.style.opacity = "1";
         }, 150);
-    
-        // Wait 0.5 seconds
+
         await new Promise(resolve => setTimeout(resolve, 500));
-    
-        // Fetch next reason
+
         const response = await fetch("/next", { method: "POST" });
         const data = await response.json();
-    
-        // Fade out the emoji
+
         reasonBox.style.opacity = "0";
-    
-        // Typing effect function
+
         function typeText(element, text, speed = 25) {
             element.innerHTML = "";
             let i = 0;
@@ -260,26 +314,23 @@ HTML = """
                 if (i >= text.length) clearInterval(interval);
             }, speed);
         }
-    
+
         setTimeout(() => {
-            // Update number immediately
             numberBox.innerHTML = "Reason #" + data.number;
             numberBox.style.opacity = "1";
-    
-            // Start typing effect for the reason
+
             const fullText = "I love you because " + data.reason + ".";
             typeText(reasonBox, fullText);
-    
-            // Fade text back in
+
             reasonBox.style.opacity = "1";
         }, 200);
     });
     </script>
 
-
 </body>
 </html>
 """
+
 
 @app.route("/", methods=["GET"])
 def index():
