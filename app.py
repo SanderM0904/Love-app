@@ -46,7 +46,7 @@ reasons = [
     "your curly hair is so so so pretty",
     "my heart melts when I think of your cuteness",
     "you make me feel supported in all the things I do and want to do",
-    "you make every girl alive look like goofballs",
+    "you make every girl alive look like a goofball",
     "you changed my sexual orientation from heterosexual to Varvarasexual",
     "everyday I wish that I should have met you earlier",
     "made my exchange the best time of my life",
@@ -112,6 +112,38 @@ reasons = [
     "I love talking about how amazing you are to other people",
     "all your presents you give me mean so much to me",
     "I keep wondering why I deserve you",
+    "you make me want research your interests so that I can talk about it with you",
+    "you make it easier for me to get out of bed knowing that I'm your boyfriend :0",
+    "I got into jazz more since we went to that jazz bar and it's really nice",
+    "you want a future with me??? ME TOO!!!",
+    "you listen to my random facts and that means a lot to me",
+    "you make me feel like everything will be okay",
+    "I look at the photos of yourself you send me everyday. Yes everyday",
+    "you are the only person I would give my last sushi piece to",
+    "you increase my screen time and it doesn't feel like I'm wasting my time whatsoever",
+    "you are the only person that could steal all my clothes",
+    "you make me want to brag about you to strangers",
+    "I always check my reflection before video calls",
+    "you are genuinely funny and you make me laugh so easily",
+    "you make me want to remember every single thing you say",
+    "you make me want to check my phone even when it didn’t buzz, just to be sure that I didn't miss a message from you",
+    "I can't stop thinking about how it would feel like to go home after a rough day and you being there",
+    "you make daydreaming not boring anymore :)",
+    "I see the whole world when I look at you",
+    "I love hearing your gossip it's really fun",
+    "you make me want to remember every detail of your face",
+    "I feel like I can't express my love anymore to you. It is too big",
+    "you make me feel warm and comfortable even on facetime",
+    "I look forward to your good morning and goodnight messages",
+    "you make me write these reasons past midnight because I miss you so much",
+    "cuddling with you for a full day and nothing else is in my eyes a perfect day",
+    "listening to your childhood memories is so fun and I want to know more about it",
+    "I keep scrolling Instagram reels to look for the ones you liked",
+    "I always get a little happier knowing your part of my life",
+    "of how easy it is to talk to you for hours",
+    "I get excited when I get the chance to yap about my day to you",
+    "I feel connected to you in a way that feels real",
+    "I wonder what's going inside your head that makes you so amazing",
 ]
 
 random.shuffle(reasons)
@@ -260,6 +292,7 @@ HTML = """
         <button id="next-btn">Press for another 💖</button>
 
         <footer>Made with love, just for you</footer>
+        <footer>November 1st, 2025 💗</footer>
     </div>
 
     <script>
