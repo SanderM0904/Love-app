@@ -144,6 +144,8 @@ reasons = [
     "I get excited when I get the chance to yap about my day to you",
     "I feel connected to you in a way that feels real",
     "I wonder what's going inside your head that makes you so amazing",
+    "your smile makes me want to lock you up and keep you somewhere no one else sees you :)",
+    "you know me better than everyone else right now",
 ]
 
 random.shuffle(reasons)
